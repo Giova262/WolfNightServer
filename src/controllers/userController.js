@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken'
 const atributos = [
     'nickname',
     'mail',
-    'pass',
     'foto',
     'L',
     'M',

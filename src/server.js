@@ -1,6 +1,7 @@
 import express,{json} from 'express'
 import userRouter from './rutas/user'
 import charRouter from './rutas/char'
+import eventRouter from './rutas/event'
 import cors from 'cors'
 
 
@@ -19,6 +20,7 @@ app.use( json() )
 /**Rutas */
 app.use('/api/user',userRouter)
 app.use('/api/char',charRouter)
+app.use('/api/event',eventRouter)
 
 /** Ruta por Defecto */
 app.get('/', function(req, res){
