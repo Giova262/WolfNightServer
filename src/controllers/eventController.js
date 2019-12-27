@@ -4,6 +4,7 @@ import Event from '../models/eventModel'
 
 /**Constante */
 const atributos = [
+    'id',
     'name_user',
     'titulo',
     'time',
@@ -134,9 +135,41 @@ export async function getevent(req,res){
 /** Elimina un evento */
 export async function deleteEvent(req,res){
 
-    res.json({
-        message:"Evento Borrado."
+   const { id } = req.params;
+
+   try {
+
+    await Event.destroy(
+        {
+            where:{
+                id:id
+            }
+        }
+    ).then( function(deletedRecord){
+
+        if(deletedRecord === 1){
+            res.status(200).json({
+                message:"Evento se elimino correctamente.",        
+                status:0
+            })         
+        }
+        else
+        {
+            res.status(200).json({
+                message:"Evento no se encontro.",        
+                status:1
+            })
+        }
+
     })
+       
+   } catch (error) {
+
+        res.status(500).json({
+            message:error,        
+            status:-1
+        })
+   }
 }
 
 /** Actualiza un evento */
