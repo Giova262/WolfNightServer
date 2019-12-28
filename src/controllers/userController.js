@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 const atributos = [
     'nickname',
     'mail',
+    'pass',
     'foto',
     'L',
     'M',
@@ -28,9 +29,38 @@ const atributos = [
 /** Traer todos los usuarios */
 export async function getUsers(req,res){
 
-    res.json({
-        message:"Lista de Usuarios."
-    })
+    try {
+
+        const users = await User.findAll({
+            attributes: [
+            'nickname',
+            'foto'
+            ]
+        });
+        
+        if(users){
+            res.status(200).json({
+                message:"Todos los usuarios registrados son.",
+                data: users,
+                status:0
+            })
+        }else{
+            res.status(200).json({
+                message:"No hay usuarios registrados",
+                data: users,
+                status:1
+            })
+        }
+     
+  
+      }catch (error) {
+
+        console.log(error)
+        res.status(500).json({
+            message:error,
+            status:-1
+        })
+      } 
 }
 
 /** Crea nuevo usuario */
@@ -117,7 +147,24 @@ export async function getUser(req,res){
                 id:id
 
             },
-            attributes: atributos
+            attributes: [
+                'nickname',
+                'foto',
+                'L',
+                'M',
+                'MI',
+                'J',
+                'V',
+                'S',           
+                'D',
+                'HL',
+                'HM',
+                'HMI',
+                'HJ',
+                'HV',
+                'HS',           
+                'HD'
+            ]
         });
 
         if(userFound){
@@ -166,7 +213,6 @@ export async function checkNickname(req,res){
     
             res.status(200).json({
                 message:"Usuario encontrado.",
-                data:userFound,
                 status:1
             })
 
@@ -208,7 +254,6 @@ export async function checkMail(req,res){
     
             res.status(200).json({
                 message:"Usuario encontrado.",
-                data:userFound,
                 status:1
             })
 

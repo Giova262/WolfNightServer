@@ -4,7 +4,6 @@ import Event from '../models/eventModel'
 
 /**Constante */
 const atributos = [
-    'id',
     'name_user',
     'titulo',
     'time',
@@ -37,6 +36,7 @@ export async function getevents(req,res){
 
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             message:error,
             status:-1
@@ -82,6 +82,8 @@ export async function createEvent(req,res){
         }
        
     } catch (error) {
+
+        console.log(error)
         res.status(500).json({
             message:error,
             status:-1
@@ -103,7 +105,13 @@ export async function getevent(req,res){
                 id:id
 
             },
-            attributes: atributos
+            attributes: [
+                'id',
+                'name_user',
+                'titulo',
+                'time',
+                'descripcion'
+            ]
         });
 
         if(eventFound){
@@ -124,6 +132,7 @@ export async function getevent(req,res){
 
     } catch (error) {
 
+        console.log(error)
         res.status(500).json({
             message:error,        
             status:-1
@@ -165,6 +174,7 @@ export async function deleteEvent(req,res){
        
    } catch (error) {
 
+        console.log(error)
         res.status(500).json({
             message:error,        
             status:-1
