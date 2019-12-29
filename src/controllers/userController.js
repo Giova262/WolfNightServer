@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 
 /**Constante */
 const atributos = [
+    'id',
     'nickname',
     'mail',
     'pass',
@@ -33,8 +34,23 @@ export async function getUsers(req,res){
 
         const users = await User.findAll({
             attributes: [
+            'id',
             'nickname',
-            'foto'
+            'foto',
+            'L',
+            'M',
+            'MI',
+            'J',
+            'V',
+            'S',           
+            'D',
+            'HL',
+            'HM',
+            'HMI',
+            'HJ',
+            'HV',
+            'HS',           
+            'HD'
             ]
         });
         
@@ -148,6 +164,7 @@ export async function getUser(req,res){
 
             },
             attributes: [
+                'id',
                 'nickname',
                 'foto',
                 'L',

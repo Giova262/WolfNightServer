@@ -3,7 +3,8 @@ import {
     getChars,
     createChar,
     deleteChar,
-    updateChar
+    updateChar,
+    getCharsByUser
 } from '../controllers/charController'
 
 
@@ -13,6 +14,7 @@ const router = Router()
 
 /** Rutas */
 router.get('/',getChars) 
+router.get('/user/:id',getCharsByUser)
 router.post('/',createChar) 
 router.delete('/:id',deleteChar) 
 router.put('/:id',updateChar) 

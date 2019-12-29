@@ -9,6 +9,61 @@ export async function getChars(req,res){
     })
 }
 
+/** Trae personajes por id de usuario */
+export async function getCharsByUser(req,res){
+
+    const {id} = req.params
+
+    try {
+
+        var chars = await Char.findAll(
+            {
+                where:{
+                    id_user:id
+                },
+                attributes: [
+                    'id',
+                    'id_user',
+                    'nombre',
+                    'clase',
+                    'nivel',
+                    'arma',
+                    'armadura',
+                    'botas',
+                    'guantes',
+                    'cinturon',           
+                    'rankeado'
+                 ]
+            }
+        )
+
+        if(chars){
+
+            res.status(200).json({
+                message:"Personajes del usuario.",
+                data: chars,
+                status:0
+            })
+
+        }else{
+
+            res.status(400).json({
+                message:"No hay personajes para ese usuario.",
+                status:-1
+            })
+
+        }
+        
+    } catch (error) {
+
+        console.log(error)
+        res.status(500).json({
+            message:error,
+            status:-1
+        })
+    }
+}
+
 /** Crea nuevo Personajes */
 export async function createChar(req,res){
 
