@@ -4,9 +4,45 @@ import Char from '../models/charModel'
 /** Traer todos los personajes */
 export async function getChars(req,res){
 
-    res.json({
-        message:"Lista de Personajes."
-    })
+    try {
+
+        const chars = await Char.findAll({
+            attributes: [
+                'id',
+                'id_user',
+                'nombre',
+                'clase',
+                'nivel',
+                'arma',
+                'armadura',
+                'botas',
+                'guantes',
+                'cinturon',           
+                'rankeado'
+            ]
+        });
+        
+        if(chars){
+            res.status(200).json({
+                message:"Todos los usuarios registrados son.",
+                data: chars,
+                status:0
+            })
+        }else{
+            res.status(200).json({
+                message:"No hay usuarios registrados",
+                status:1
+            })
+        }
+     
+    }catch (error) {
+
+        console.log(error)
+        res.status(500).json({
+            message:error,
+            status:-1
+        })
+    }
 }
 
 /** Trae personajes por id de usuario */

@@ -116,7 +116,27 @@ export async function createUser(req,res){
                 token:token
             },
             {
-                fields:atributos
+                fields:[
+                    'nickname',
+                    'mail',
+                    'pass',
+                    'foto',
+                    'L',
+                    'M',
+                    'MI',
+                    'J',
+                    'V',
+                    'S',           
+                    'D',
+                    'HL',
+                    'HM',
+                    'HMI',
+                    'HJ',
+                    'HV',
+                    'HS',           
+                    'HD',
+                    'token'
+                ]
             }
         )
 
