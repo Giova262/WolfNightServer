@@ -7,7 +7,8 @@ import {
     updateUser,
     checkMail,
     checkNickname,
-    loginUser
+    loginUser,
+    sendMails
 } from '../controllers/userController'
 
 
@@ -20,6 +21,8 @@ router.get('/',getUsers)
 router.get('/:id',getUser) 
 router.get('/check/mail/:mail',checkMail)
 router.get('/check/nickname/:nick',checkNickname)
+router.get('/email/send/:msj', sendMails);
+
 
 
 router.post('/',createUser) 

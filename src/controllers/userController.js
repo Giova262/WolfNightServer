@@ -1,5 +1,6 @@
 import User from '../models/userModel'
 import jwt from 'jsonwebtoken'
+import nodemailer from 'nodemailer'
 
 
 /**Constante */
@@ -445,5 +446,57 @@ export async function updateUser(req,res){
             status:-1
         })
     }
+}
+
+/**Enviando mails */
+export async function sendMails(req,res){
+    const { msj } = req.params;
+      
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        secure: false, // use SSL
+        port: 25, // port for secure SMTP
+        auth: {
+               user: 'TeraWolfNight@gmail.com',
+               pass: 'CRQCNE2uqi'
+           },
+           tls: {
+            rejectUnauthorized: false
+        }
+    });
+
+    const users = await User.findAll({
+        attributes: [
+        'nickname',
+        'mail'
+        ]
+    });
+
+    var lista = []
+    users.map( (e,i)=>{
+       lista.push(e.mail)
+    })
+  
+    const mailOptions = {
+        from: 'TeraWolfNight@gmail.com', // sender address
+        to: lista, // list of receivers
+        subject: 'Evento Finalizado', // Subject line
+        html: '<p>'+msj+'</p>'// plain text body
+      };
+
+    transporter.sendMail(mailOptions, function (err, info) {
+        if(err)
+          console.log(err)
+        else{
+            console.log(info);
+            res.status(200).json({
+                message:'Mails enviados',        
+                status:-1
+            })
+        }
+         
+     });
+
+    
 }
 
