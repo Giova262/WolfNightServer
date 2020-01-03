@@ -370,8 +370,80 @@ export async function deleteUser(req,res){
 /** Actualiza un usuario */
 export async function updateUser(req,res){
 
-    res.json({
-        message:"Usuario Actualizado."
-    })
+    const {
+        id,nickname,mail,pass,foto,
+        L,M,MI,J,V,S,D,
+        HL,HM,HMI,HJ,HV,HS,HD } = req.body
+
+    try {
+
+        await User.findOne({
+            where: {          
+                id:id
+            },
+            attributes: [
+                'id',
+                'nickname',
+                'mail',
+                'pass',
+                'foto',
+                'L',
+                'M',
+                'MI',
+                'J',
+                'V',
+                'S',           
+                'D',
+                'HL',
+                'HM',
+                'HMI',
+                'HJ',
+                'HV',
+                'HS',           
+                'HD'
+            ]
+          })
+          .then( async user => {
+
+            const userChanged = await user.update({
+
+                nickname: nickname,
+                mail:mail,
+                pass:pass,
+                foto:foto,
+                L:L,
+                M:M,
+                MI:MI,
+                J:J,
+                V:V,
+                S:S,
+                D:D,
+                HL:HL,
+                HM:HM,
+                HMI:HMI,
+                HJ:HJ,
+                HV:HV,
+                HS:HS,
+                HD:HD
+            });
+
+            if(userChanged){
+
+                res.status(200).json({
+                    message:'El usuario se actualizo.', 
+                    data:userChanged,
+                    status:0
+                })
+            }
+
+          });
+        
+    } catch (error) {
+
+        res.status(500).json({
+            message:error,        
+            status:-1
+        })
+    }
 }
 

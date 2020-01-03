@@ -17,7 +17,7 @@ router.get('/',getChars)
 router.get('/user/:id',getCharsByUser)
 router.post('/',createChar) 
 router.delete('/:id',deleteChar) 
-router.put('/:id',updateChar) 
+router.put('/',updateChar) 
 
 
 export default router

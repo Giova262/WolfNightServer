@@ -176,7 +176,65 @@ export async function deleteChar(req,res){
 /** Actualiza un personaje */
 export async function updateChar(req,res){
 
-    res.json({
-        message:"Personaje Actualizado."
-    })
+    console.log('actualiznado')
+    const {   
+    id,id_user,nombre,clase,nivel,
+    arma,armadura,botas,guantes,cinturon,rankeado} = req.body
+
+    try {
+
+        await Char.findOne({
+            where: {          
+                id:id
+            },
+            attributes: [
+                'id',
+                'id_user',
+                'nombre',
+                'clase',
+                'nivel',
+                'arma',
+                'armadura',
+                'botas',
+                'guantes',
+                'cinturon',
+                'rankeado'
+            ]
+          })
+          .then( async char => {
+
+            const charChanged = await char.update({
+
+                id,
+                id_user,
+                nombre,
+                clase,
+                nivel,
+                arma,
+                armadura,
+                botas,
+                guantes,
+                cinturon,
+                rankeado
+
+            });
+
+            if(charChanged){
+
+                res.status(200).json({
+                    message:'El personaje se actualizo.', 
+                    data:charChanged,
+                    status:0
+                })
+            }
+
+          });
+        
+    } catch (error) {
+
+        res.status(500).json({
+            message:error,        
+            status:-1
+        })
+    }
 }
